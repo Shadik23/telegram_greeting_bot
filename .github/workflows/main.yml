@@ -1,0 +1,52 @@
+# .github/workflows/main.yml
+
+name: CI Pipeline
+
+# --- Triggers ---
+# This workflow runs on pushes to the 'main' branch and on pull requests targeting 'main'.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# --- Jobs ---
+# We define a single job called 'build-and-test'.
+jobs:
+  build-and-test:
+    # The type of virtual machine to run the job on. 'ubuntu-latest' is a standard choice.
+    runs-on: ubuntu-latest
+
+    # --- Steps ---
+    # A sequence of tasks that will be executed as part of the job.
+    steps:
+      # Step 1: Check out the repository code
+      # This action checks out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker Buildx
+      # This is a required step for building multi-platform images and using advanced Docker features.
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Step 3: Run the test suite
+      # This is the core of our CI. It executes the same script we used locally.
+      # We provide a dummy BOT_TOKEN because the tests don't need a real one.
+      - name: Run integration tests
+        run: ./run_tests.sh
+        env:
+          # We need to provide the BOT_TOKEN variable, as the script expects it,
+          # but it can be a dummy value since it's only used for the bot service
+          # which is idle during tests.
+          BOT_TOKEN: "dummy_token_for_ci"
+
+      # Step 4 (Optional but recommended): Clean up Docker resources
+      # This ensures that any lingering containers or images are removed to free up space on the GitHub runner.
+      - name: Docker cleanup
+        if: always() # This step runs even if previous steps fail.
+        run: |
+          docker-compose down -v --remove-orphans
+          docker system prune -af --volumes

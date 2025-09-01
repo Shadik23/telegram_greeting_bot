@@ -1,0 +1,17 @@
+{
+  "name": "Telegram Bot Dev Environment",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "bot",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
