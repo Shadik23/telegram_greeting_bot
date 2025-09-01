@@ -48,5 +48,5 @@ jobs:
       - name: Docker cleanup
         if: always() # This step runs even if previous steps fail.
         run: |
-          docker-compose down -v --remove-orphans
+          docker compose down -v --remove-orphans
           docker system prune -af --volumes
